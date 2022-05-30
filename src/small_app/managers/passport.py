@@ -16,24 +16,9 @@ class PassportManager(models.Manager):
 
     def get_by_filters(
         self,
-        passport_series=None,
-        passport_number=None,
-        first_name=None,
-        last_name=None
+        filters: dict = {}
     ):
-        passports = self.filter()
-
-        if passport_series:
-            passports = passports.filter(passport_series=passport_series)
-
-        if passport_number:
-            passports = passports.filter(passport_number=passport_number)
-
-        if first_name:
-            passports = passports.filter(first_name__icontains=first_name)
-
-        if last_name:
-            passports = passports.filter(last_name__icontains=last_name)
+        passports = self.filter(**filters)
 
         amount = passports.count()
 

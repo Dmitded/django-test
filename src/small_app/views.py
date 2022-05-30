@@ -112,14 +112,21 @@ class PassportsApiView(APIView):
     renderer_classes = (JSONRenderer,)
     # serializer_class = PassportsSerializer
 
+    @staticmethod
+    def serialize_passport_filter(key: str):
+        if key.__contains__('name'):
+            return f'{key}__icontains'
+
+        return key
+
     def get(self, request, *args, **kwargs):
 
         filters = {
-            key: value for key, value in request.query_params.dict().items()
+            self.serialize_passport_filter(key): value for key, value in request.query_params.dict().items()
             if key in ('first_name', 'last_name', 'passport_series', 'passport_number')
         }
 
-        passports = Passport.objects.get_by_filters(**filters)
+        passports = Passport.objects.get_by_filters(filters)
         serializer = PassportsSerializer(passports)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
