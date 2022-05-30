@@ -43,6 +43,7 @@ docker build -t <your-tag> -f deploy/Dockerfile .
 ```
 
 Для запуска контейнера используется .env файл, пример которого можете найти в deploy/.env_example.
+
 Запуск контейнера из корня проекта (используется volume для sqlite файла):
 ```bash
 docker run --net=host -v /local/path/to/db/:/local-db --env-file=src/dev.env <your-tag>
