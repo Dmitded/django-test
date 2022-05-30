@@ -1,4 +1,4 @@
-# django-test-dl
+# django-test
 
 ## Backend local
 
@@ -16,7 +16,7 @@ brew install python3
 Клонируем проект, создаем виртуальное окружение
 
 ```bash
-cd django-test-dl
+cd django-test
 python3 -m venv env
 ```
 
