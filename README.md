@@ -43,6 +43,9 @@ docker build -t <your-tag> -f deploy/Dockerfile .
 ```
 
 Для запуска контейнера используется .env файл, пример которого можете найти в deploy/.env_example.
+```bash
+cp deploy/.env_example src/.env
+```
 
 Запуск контейнера из корня проекта (используется volume для sqlite файла):
 ```bash
