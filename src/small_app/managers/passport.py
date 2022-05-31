@@ -3,14 +3,14 @@ from django.db import models
 
 class PassportManager(models.Manager):
 
-    def get_by_passport_data(self, passport_series, passport_number, passport_id=None):
+    def get_by_passport_data(self, passport_series, passport_number, excluded_id=None):
         passport = self.filter(
             passport_series=passport_series,
             passport_number=passport_number,
         )
 
-        if passport_id is not None:
-            passport = passport.exclude(id=passport_id)
+        if excluded_id is not None:
+            passport = passport.exclude(id=excluded_id)
 
         return passport.first()
 

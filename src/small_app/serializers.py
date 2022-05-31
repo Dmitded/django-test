@@ -182,12 +182,13 @@ class PassportSerializer(serializers.ModelSerializer):
             or passport_number and passport_series is None
         ):
             raise serializers.ValidationError(
-                'Series and passport number must be transmitted at the same time'
+                detail='Series and passport number must be transmitted at the same time',
+                code=400
             )
         elif passport_series and passport_number and Passport.objects.get_by_passport_data(
             passport_series=passport_series,
             passport_number=passport_number,
-            passport_id=instance.id
+            excluded_id=instance.id
         ) is not None:
             raise serializers.ValidationError(
                 detail='Passport with this passport data exists',
