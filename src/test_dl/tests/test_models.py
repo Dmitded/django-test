@@ -48,7 +48,7 @@ class UserTestCase(TestCase):
 class PassportTestCase(TestCase):
     def test_passport_have_required_fields(self):
 
-        passport = Passport.objects.create_passport(**PASSPORT_DATA)
+        passport = Passport.objects.create(**PASSPORT_DATA)
         passport.save()
 
         self.assertEqual(passport.passport_series, PASSPORT_DATA['passport_series'])
@@ -58,7 +58,7 @@ class PassportTestCase(TestCase):
 
     def test_passport_update_fields(self):
 
-        passport = Passport.objects.create_passport(**PASSPORT_DATA)
+        passport = Passport.objects.create(**PASSPORT_DATA)
         passport.save()
         passport_id = passport.id
 

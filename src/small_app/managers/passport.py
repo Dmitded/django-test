@@ -19,37 +19,12 @@ class PassportManager(models.Manager):
         filters: dict = {}
     ):
         passports = self.filter(**filters)
-
         amount = passports.count()
 
         return {
             'passports': passports.all(),
             'amount': amount
         }
-
-    def create_passport(
-        self,
-        first_name,
-        last_name,
-        passport_series=None,
-        passport_number=None
-    ):
-
-        if passport_series is None:
-            raise TypeError('Passport must have a passport_number.')
-
-        if passport_number is None:
-            raise TypeError('Passport must have a passport_number.')
-
-        passport = self.model(
-            first_name=first_name,
-            last_name=last_name,
-            passport_series=passport_series,
-            passport_number=passport_number
-        )
-        passport.save()
-
-        return passport
 
     def remove(self, passport_id):
 

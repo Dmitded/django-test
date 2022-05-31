@@ -71,7 +71,13 @@ class UsersRetrieveAPIView(RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
 
-        users = User.objects.get_by_filters(**request.query_params.dict())
+        filters = {
+            key: value
+            for key, value in request.query_params.dict().items()
+            if key in ('username', 'email')
+        }
+
+        users = User.objects.get_by_filters(filters)
         serializer = self.serializer_class(users)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -110,7 +116,6 @@ class PassportsApiView(APIView):
 
     permission_classes = (IsAuthenticated,)
     renderer_classes = (JSONRenderer,)
-    # serializer_class = PassportsSerializer
 
     @staticmethod
     def serialize_passport_filter(key: str):
@@ -122,7 +127,8 @@ class PassportsApiView(APIView):
     def get(self, request, *args, **kwargs):
 
         filters = {
-            self.serialize_passport_filter(key): value for key, value in request.query_params.dict().items()
+            self.serialize_passport_filter(key): value
+            for key, value in request.query_params.dict().items()
             if key in ('first_name', 'last_name', 'passport_series', 'passport_number')
         }
 
@@ -132,9 +138,8 @@ class PassportsApiView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        passport_data = request.data
 
-        serializer = PassportCreateSerializer(data=passport_data)
+        serializer = PassportCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 

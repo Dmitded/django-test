@@ -157,7 +157,7 @@ class UserViewsTestCase(TestCase):
             })
         ).data['token']
 
-        passport = Passport.objects.create_passport(**PASSPORT_DATA)
+        passport = Passport.objects.create(**PASSPORT_DATA)
         passport.save()
 
         response = self.client.get(
@@ -169,7 +169,7 @@ class UserViewsTestCase(TestCase):
         self.assertNotEqual(response.data['passports'], [])
         self.assertIsNotNone(response.data['amount'])
 
-    def test_create_passport(self):
+    def test_create(self):
         user = User.objects.create_user(**USER_DATA)
         user.save()
 
@@ -209,7 +209,7 @@ class UserViewsTestCase(TestCase):
             })
         ).data['token']
 
-        passport = Passport.objects.create_passport(**PASSPORT_DATA)
+        passport = Passport.objects.create(**PASSPORT_DATA)
         passport.save()
 
         response = self.client.get(
@@ -233,7 +233,7 @@ class UserViewsTestCase(TestCase):
             })
         ).data['token']
 
-        passport = Passport.objects.create_passport(**PASSPORT_DATA)
+        passport = Passport.objects.create(**PASSPORT_DATA)
         passport.save()
 
         response = self.client.patch(
@@ -263,7 +263,7 @@ class UserViewsTestCase(TestCase):
             })
         ).data['token']
 
-        passport = Passport.objects.create_passport(**PASSPORT_DATA)
+        passport = Passport.objects.create(**PASSPORT_DATA)
         passport.save()
 
         response = self.client.post(
@@ -289,10 +289,10 @@ class UserViewsTestCase(TestCase):
             })
         ).data['token']
 
-        passport = Passport.objects.create_passport(**PASSPORT_DATA)
+        passport = Passport.objects.create(**PASSPORT_DATA)
         passport.save()
 
-        another_passport = Passport.objects.create_passport(**PASSPORT_UPDATE_DATA)
+        another_passport = Passport.objects.create(**PASSPORT_UPDATE_DATA)
         another_passport.save()
 
         response = self.client.patch(
@@ -318,7 +318,7 @@ class UserViewsTestCase(TestCase):
             })
         ).data['token']
 
-        passport = Passport.objects.create_passport(**PASSPORT_DATA)
+        passport = Passport.objects.create(**PASSPORT_DATA)
         passport.save()
 
         response = self.client.delete(

@@ -10,9 +10,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         max_length=128,
         min_length=8,
-        write_only=True
+        write_only=True,
+        required=True
     )
     token = serializers.CharField(max_length=255, read_only=True)
+    username = serializers.CharField(max_length=255, required=True)
+    email = serializers.CharField(max_length=255, required=True)
 
     class Meta:
         model = User
@@ -130,6 +133,8 @@ class PassportCreateSerializer(serializers.ModelSerializer):
         max_value=999999,
         required=True
     )
+    first_name = serializers.CharField(max_length=255, required=True)
+    last_name = serializers.CharField(max_length=255, required=True)
 
     class Meta:
         model = Passport
@@ -145,7 +150,7 @@ class PassportCreateSerializer(serializers.ModelSerializer):
                 code=403
             )
 
-        return Passport.objects.create_passport(**validated_data)
+        return Passport.objects.create(**validated_data)
 
 
 class PassportSerializer(serializers.ModelSerializer):
